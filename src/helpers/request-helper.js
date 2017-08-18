@@ -1,0 +1,92 @@
+import superagent from 'superagent';
+import config from '../config';
+
+export default {
+	get ( url ) {
+		return new Promise( function ( resolve, reject ) {
+			superagent
+				.get( `${config.api}${ url }` )
+				.set( 'Accept', 'application/json' )
+				.end( ( error, result ) => {
+					if ( error ) {
+						return reject( error );
+					}
+					return resolve( result.body, result );
+				} );
+		} );
+	},
+
+	post ( url, body ) {
+		return new Promise( function ( resolve, reject ) {
+			superagent
+				.post( `${config.api}${ url }` )
+				.set( 'Accept', 'application/json' )
+				.send( body )
+				.end( ( error, result ) => {
+					if ( error ) {
+						return reject( {
+							'error'  : error,
+							'result' : result
+						} );
+					}
+					return resolve( result.body, result );
+				} );
+		} );
+	},
+
+	put ( url, body, options ) {
+		let bodyType =  'application/json';
+
+		if ( options && options.bodyType ) {
+			bodyType = options.bodyType;
+		}
+
+		return new Promise( function ( resolve, reject ) {
+			superagent
+				.put( `${config.api}${ url }` )
+				.set( 'Accept', bodyType )
+				.send( body )
+				.end( ( error, result ) => {
+					if ( error ) {
+						return reject( {
+							'error'  : error,
+							'result' : result
+						} );
+					}
+					return resolve( result.body, result );
+				} );
+		} );
+	},
+
+	patch ( url, body ) {
+		return new Promise( function ( resolve, reject ) {
+			superagent
+				.patch( `${config.api}${ url }` )
+				.set( 'Accept', 'application/json' )
+				.send( body )
+				.end( ( error, result ) => {
+					if ( error ) {
+						return reject( {
+							'error'  : error,
+							'result' : result
+						} );
+					}
+					return resolve( result.body, result );
+				} );
+		} );
+	},
+
+	del ( url ) {
+		return new Promise( function ( resolve, reject ) {
+			superagent
+				.del( `${config.api}${ url }` )
+				.set( 'Accept', 'application/json' )
+				.end( ( error, result ) => {
+					if ( error ) {
+						return reject( error );
+					}
+					return resolve( result.body, result );
+				} );
+		} );
+	}
+};

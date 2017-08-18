@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.full-height {
+	min-height: 95vh!important;
+}
+
+.padding-left {
+	padding-left: 14px!important;
+}
+
+.center {
+	text-align: center;
+}
